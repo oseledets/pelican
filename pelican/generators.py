@@ -79,6 +79,10 @@ class Generator(object):
         # get custom Jinja filters from user settings
         custom_filters = self.settings['JINJA_FILTERS']
         self.env.filters.update(custom_filters)
+        
+        # get custom Jinja tests from user settings
+        custom_tests = self.settings['JINJA_TESTS']
+        self.env.tests.update(custom_tests)
 
         signals.generator_init.send(self)
 
@@ -254,6 +258,7 @@ class TemplatePagesGenerator(Generator):
             try:
                 template = self.env.get_template(source)
                 rurls = self.settings['RELATIVE_URLS']
+                import ipdb; ipdb.set_trace()
                 writer.write_file(dest, template, self.context, rurls,
                                   override_output=True)
             finally:

@@ -159,7 +159,6 @@ class Pelican(object):
                 output_path=self.output_path,
             ) for cls in self.get_generator_classes()
         ]
-
         # erase the directory if it is not the source and if that's
         # explicitly asked
         if (self.delete_outputdir and not
@@ -169,15 +168,12 @@ class Pelican(object):
         for p in generators:
             if hasattr(p, 'generate_context'):
                 p.generate_context()
-
         signals.all_generators_finalized.send(generators)
 
         writer = self.get_writer()
-
         for p in generators:
             if hasattr(p, 'generate_output'):
                 p.generate_output(writer)
-
         signals.finalized.send(self)
 
         articles_generator = next(g for g in generators
@@ -411,7 +407,6 @@ def main():
                     # have changed, no matter what extension the filenames
                     # have.
                     modified = {k: next(v) for k, v in watchers.items()}
-
                     if modified['settings']:
                         pelican, settings = get_instance(args)
 
@@ -477,7 +472,6 @@ def main():
 
     except Exception as e:
         logger.critical('%s', e)
-
         if args.verbosity == logging.DEBUG:
             raise
         else:
