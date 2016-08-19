@@ -258,7 +258,6 @@ class TemplatePagesGenerator(Generator):
             try:
                 template = self.env.get_template(source)
                 rurls = self.settings['RELATIVE_URLS']
-                import ipdb; ipdb.set_trace()
                 writer.write_file(dest, template, self.context, rurls,
                                   override_output=True)
             finally:
